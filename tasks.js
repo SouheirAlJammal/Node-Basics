@@ -71,6 +71,13 @@ function hello() {
 }
 
 
+
+/**
+ *Function list differents command used in App
+ *
+ * @param {text} text data typed by the user
+ * @returns {void}
+ */
 function help() {
   console.log(
     `
