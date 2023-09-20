@@ -35,7 +35,7 @@ function startApp(name) {
  */
 function onDataReceived(text) {
 
-  text = text.replace(/\n/g,'').trim();
+  text = text.replace(/\n/g, '').trim();
   let command = text.split(' ');
 
   if (text === 'quit' || text === 'exit') {
@@ -71,7 +71,7 @@ function unknownCommand(c) {
  * @returns {void}
  */
 function hello(text) {
-  console.log(text+'!')
+  console.log(text + '!')
 }
 
 
