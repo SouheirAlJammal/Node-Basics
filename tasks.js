@@ -1,4 +1,6 @@
 
+const fs = require('fs');
+
 /**
  * Starts the application
  * This is the function that is run when the app starts
@@ -12,6 +14,8 @@
 
 var taskList = [];
 function startApp(name) {
+  taskList = loadData()
+  console.log(loadData());
   process.stdin.resume();
   process.stdin.setEncoding('utf8');
   process.stdin.on('data', onDataReceived);
@@ -40,6 +44,7 @@ function onDataReceived(text) {
   let splitedText = text.split(' ');
 
   if (text === 'quit' || text === 'exit') {
+    saveData(taskList);
     quit();
 
 
@@ -85,7 +90,7 @@ function onDataReceived(text) {
     let IndexTaskChecked = splitedText.slice(1).join(' ');
     checkTask(IndexTaskChecked);
 
-  }else if (splitedText[0] === 'uncheck') {
+  } else if (splitedText[0] === 'uncheck') {
     let IndexUnchecked = splitedText.slice(1).join(' ');
     uncheckTask(IndexUnchecked);
   }
@@ -156,7 +161,7 @@ function quit() {
  *@param {array}
  */
 function listedTask(tasks) {
-  console.log(tasks);
+  // console.log(tasks);
   if (taskList.length === 0) { console.log('there is No tasks yet') }
   else {
     for (let i = 0; i < tasks.length; i++) {
@@ -189,14 +194,20 @@ function removeTask(taskIndex) {
 function editTask(editRequest) {
   let checkNbr = /\d+/g;
   if (editRequest === '') console.log("write the new task you want to change");
-  else if (editRequest.match(checkNbr) === null) { taskList[(taskList.length) - 1].task = editRequest }
-  else { taskList[editRequest[0] - 1].task = editRequest.slice(1) };
+  else if (editRequest.match(checkNbr) === null) {
+    taskList[(taskList.length) - 1].task = editRequest;
+    console.log('task edited successfully')
+  }
+  else {
+    taskList[editRequest[0] - 1].task = editRequest.slice(1);
+    console.log('task edited successfully')
+  };
 }
 
 function checkTask(IndexTaskChecked) {
   if (IndexTaskChecked === '') { console.log('should select the task by index') }
   else {
-    taskList[parseInt(IndexTaskChecked)-1].done=true;
+    taskList[parseInt(IndexTaskChecked) - 1].done = true;
     console.log(`"task ${IndexTaskChecked}" is marked as checked`)
   }
 }
@@ -205,9 +216,30 @@ function checkTask(IndexTaskChecked) {
 function uncheckTask(IndexUnchecked) {
   if (IndexUnchecked === '') { console.log('should select the task by index') }
   else {
-    taskList[parseInt(IndexUnchecked)-1].done=false;
+    taskList[parseInt(IndexUnchecked) - 1].done = false;
     console.log(`"task ${IndexUnchecked}" is marked as unchecked`)
   }
 }
+
+
+//saving Data into json file
+function saveData(data) {
+  let jsonData = JSON.stringify(data);
+  fs.writeFileSync('database.json', jsonData)
+}
+
+//loading data from jason file retun data or null in error case
+function loadData() {
+  try {
+    let jsonData = fs.readFileSync('database.json', 'utf8');
+    data = JSON.parse(jsonData);
+    return data
+  }
+  catch (error) {
+    console.error('error loading data', error);
+    return null
+  }
+}
+
 // The following line starts the application
 startApp("Souheir Al Jammal")
