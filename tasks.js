@@ -42,13 +42,14 @@ function onDataReceived(text) {
     quit();
   }
   else if (splitedText[0] === 'hello') {
-    let stringLength = splitedText.length
-    let argument = splitedText.slice(1).join(' ')
+   process.env.HANDEL_COMMAND=text;
+    let stringLength = splitedText.length;
+    let argument = splitedText.slice(1).join(' ');
     hello(argument, stringLength);
 
   }
-  else if (splitedText[0] === 'help') {
-    help();
+  else if (text === 'help') {
+    help(process.env.HANDEL_COMMAND);
   }
   else {
     unknownCommand(text);
@@ -86,10 +87,10 @@ function hello(argument, stringLength) {
  * @param {text} text data typed by the user
  * @returns {void}
  */
-function help() {
+function help(argHelloCommand) {
   console.log(
     `
-  hello  command says hello!
+  ${argHelloCommand}  command says hello!
   quit   command to quit App
   exit   command to quit App
 
