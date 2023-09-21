@@ -47,7 +47,6 @@ function onDataReceived(text) {
 
   }
   else if (splitedText[0] === 'hello') {
-    process.env.HANDEL_COMMAND = text;
     let stringLength = splitedText.length;
     let argument = splitedText.slice(1).join(' ');
     console.log(argument);
@@ -55,7 +54,7 @@ function onDataReceived(text) {
 
   }
   else if (text === 'help') {
-    help(process.env.HANDEL_COMMAND);
+    help();
 
 
 
@@ -114,12 +113,16 @@ function hello(argument, stringLength) {
  * @param {text} text data typed by the user
  * @returns {void}
  */
-function help(argHelloCommand) {
+function help() {
   console.log(
     `
-  ${argHelloCommand}  command says hello!
+  hello (Name)  command says hello!
   quit   command to quit App
   exit   command to quit App
+  add    command to add task 
+  remove (index of element) command remove elt
+
+
 
  `)
 }
