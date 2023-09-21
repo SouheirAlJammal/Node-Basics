@@ -147,8 +147,7 @@ function listedTask(tasks) {
   if(taskList.length === 0){console.log('there is No tasks yet')}
  else{ for (let i = 0; i < tasks.length; i++) {
     console.log(
-      `${i + 1}-${tasks[i].trim()}
-`)
+      `${i + 1}-${tasks[i].trim()}`)
   }}
 }
 
@@ -165,8 +164,11 @@ function addTask(newTask) {
 
 
 function removeTask(taskIndex){
-  if(taskIndex===''){taskList.splice(taskList.length-1,1)}
-  else {taskList.splice(taskIndex-1,1);}
+ 
+   if(taskIndex===''){taskList.splice(taskList.length-1,1)}
+  else if(taskIndex>0 && taskIndex<taskList.length){ taskList.splice(taskIndex-1,1);}
+else console.log("Task does not exist")
+
 }
 // The following line starts the application
 startApp("Souheir Al Jammal")
