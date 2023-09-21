@@ -9,6 +9,9 @@
  * @param  {string} name the name of the app
  * @returns {void}
  */
+
+var taskList=[];
+
 function startApp(name) {
   process.stdin.resume();
   process.stdin.setEncoding('utf8');
@@ -34,25 +37,44 @@ function startApp(name) {
  * @returns {void}
  */
 function onDataReceived(text) {
-
   text = text.replace(/\n/g, '').trim();
   let splitedText = text.split(' ');
 
   if (text === 'quit' || text === 'exit') {
     quit();
+
+
+
   }
   else if (splitedText[0] === 'hello') {
-   process.env.HANDEL_COMMAND=text;
+    process.env.HANDEL_COMMAND = text;
     let stringLength = splitedText.length;
+    let argument = splitedText.slice(1).join(' ');
+    console.log(argument);
     hello(argument, stringLength);
 
   }
   else if (text === 'help') {
     help(process.env.HANDEL_COMMAND);
-  }else if (splitedText[0] === 'task') {
-    let tasks=text.split(',')
-    listedTask(tasks);
+
+
+
+  } else if (splitedText[0] === 'list') {
+  
+    listedTask(taskList);
+
+
+
+
+  } else if (splitedText[0] === 'add') {
+  
+    let newTask = splitedText.slice(1).join(' ');
+    console.log(newTask);
+    taskList.push(newTask);
+    addTask(newTask);
   }
+
+
   else {
     unknownCommand(text);
   }
@@ -114,12 +136,25 @@ function quit() {
 /**
  *@param {array}
  */
-function listedTask(tasks){
-for (let i=0;i<tasks.length;i++){
-  console.log(
-  `${i+1}-${tasks[i].trim()}
+function listedTask(tasks) {
+
+  if(taskList.length ===1){console.log('there is No tasks yet')}
+ else{ for (let i = 0; i < tasks.length; i++) {
+    console.log(
+      `${i + 1}-${tasks[i].trim()}
 `)
+  }}
 }
+
+/**
+ *
+ *
+ * @param {array} Tasks
+ * @param {number} tasksLength
+ */
+function addTask(newTask) {
+  if (process.env.ARRAY_TASK=== 1) { console.log('No task have been added') }
+  else { console.log(`"${newTask}" added successfully`) }
 }
 // The following line starts the application
 startApp("Souheir Al Jammal")
