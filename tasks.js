@@ -42,9 +42,9 @@ function onDataReceived(text) {
     quit();
   }
   else if (splitedText[0] === 'hello') {
-    let command =splitedText[0];
-    let argument=splitedText.slice(1).join(' ')
-    hello(argument);
+    let stringLength = splitedText.length
+    let argument = splitedText.slice(1).join(' ')
+    hello(argument, stringLength);
 
   }
   else if (splitedText[0] === 'help') {
@@ -70,11 +70,12 @@ function unknownCommand(c) {
 
 /**
  * Says hello
- *@param {string} text
+ *@param {string,number} 
  * @returns {void}
  */
-function hello(argument) {
-  console.log(`hello ${argument}!`)
+function hello(argument, stringLength) {
+  if (stringLength === 1) console.log("hello!")
+  else console.log(`hello ${argument}!`)
 }
 
 
