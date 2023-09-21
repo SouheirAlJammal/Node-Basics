@@ -75,6 +75,10 @@ function onDataReceived(text) {
     let taskIndex=splitedText.slice(1).join(' ');
 removeTask(taskIndex);
   }
+  else if(splitedText[0]=== 'edit'){
+    let editRequest=splitedText.slice(1).join(' ');
+    editTask(editRequest);
+  }
 
 
   else {
@@ -122,8 +126,6 @@ function help() {
   add    command to add task 
   remove (index of element) command remove elt
 
-
-
  `)
 }
 
@@ -169,6 +171,13 @@ function removeTask(taskIndex){
   else if(taskIndex>0 && taskIndex<taskList.length){ taskList.splice(taskIndex-1,1);}
 else console.log("Task does not exist")
 
+}
+
+function editTask(editRequest){
+  let checkNbr=/\d+/g;
+if (editRequest==='')console.log("write the new task you want to change");
+else if(editRequest.match(checkNbr) === null){taskList[(taskList.length)-1]=editRequest}
+else {taskList[editRequest[0]-1]=editRequest.slice(1)};
 }
 // The following line starts the application
 startApp("Souheir Al Jammal")
