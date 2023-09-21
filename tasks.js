@@ -44,12 +44,14 @@ function onDataReceived(text) {
   else if (splitedText[0] === 'hello') {
    process.env.HANDEL_COMMAND=text;
     let stringLength = splitedText.length;
-    let argument = splitedText.slice(1).join(' ');
     hello(argument, stringLength);
 
   }
   else if (text === 'help') {
     help(process.env.HANDEL_COMMAND);
+  }else if (splitedText[0] === 'task') {
+    let tasks=text.split(',')
+    listedTask(tasks);
   }
   else {
     unknownCommand(text);
@@ -109,5 +111,15 @@ function quit() {
   process.exit();
 }
 
+/**
+ *@param {array}
+ */
+function listedTask(tasks){
+for (let i=0;i<tasks.length;i++){
+  console.log(
+  `${i+1}-${tasks[i].trim()}
+`)
+}
+}
 // The following line starts the application
 startApp("Souheir Al Jammal")
