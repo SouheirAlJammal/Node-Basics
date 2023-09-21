@@ -1,5 +1,12 @@
 
 const fs = require('fs');
+var taskList = [];
+
+//get the path file from command
+var argFilePath = process.argv.slice(2);
+
+//test if a new file name exist or no
+var fileName = argFilePath.length > 0 ? argFilePath[0] : 'database.json';
 
 /**
  * Starts the application
@@ -11,8 +18,6 @@ const fs = require('fs');
  * @param  {string} name the name of the app
  * @returns {void}
  */
-
-var taskList = [];
 function startApp(name) {
   taskList = loadData()
   console.log(loadData());
@@ -225,19 +230,19 @@ function uncheckTask(IndexUnchecked) {
 //saving Data into json file
 function saveData(data) {
   let jsonData = JSON.stringify(data);
-  fs.writeFileSync('database.json', jsonData)
+  fs.writeFileSync(fileName, jsonData)
 }
 
 //loading data from jason file retun data or null in error case
 function loadData() {
   try {
-    let jsonData = fs.readFileSync('database.json', 'utf8');
+    let jsonData = fs.readFileSync(fileName, 'utf8');
     data = JSON.parse(jsonData);
     return data
   }
   catch (error) {
     console.error('error loading data', error);
-    return null
+    return []
   }
 }
 
