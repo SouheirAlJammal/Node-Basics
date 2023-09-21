@@ -72,6 +72,10 @@ function onDataReceived(text) {
     console.log(newTask);
     taskList.push(newTask);
     addTask(newTask);
+
+  }else if(splitedText[0]=== 'remove'){
+    let taskIndex=splitedText.slice(1).join(' ');
+removeTask(taskIndex);
   }
 
 
@@ -138,7 +142,7 @@ function quit() {
  */
 function listedTask(tasks) {
 
-  if(taskList.length ===1){console.log('there is No tasks yet')}
+  if(taskList.length ===0){console.log('there is No tasks yet')}
  else{ for (let i = 0; i < tasks.length; i++) {
     console.log(
       `${i + 1}-${tasks[i].trim()}
@@ -155,6 +159,12 @@ function listedTask(tasks) {
 function addTask(newTask) {
   if (process.env.ARRAY_TASK=== 1) { console.log('No task have been added') }
   else { console.log(`"${newTask}" added successfully`) }
+}
+
+
+function removeTask(taskIndex){
+  if(taskIndex===''){taskList.splice(taskList.length-1,1)}
+  else {taskList.splice(taskIndex-1,1);}
 }
 // The following line starts the application
 startApp("Souheir Al Jammal")
