@@ -133,9 +133,10 @@ function help() {
   quit   command to quit App
   exit   command to quit App
   add    command to add task 
-  remove (index of element) command remove elt
-  edit (index of Task) (edited task)
-
+  remove  (index of element)  command remove elt
+  edit    (index of Task)     (edited task)
+  check   (index of task)     mark task as done
+  uncheck (index of task)     mark task as undone
  `)
 }
 
