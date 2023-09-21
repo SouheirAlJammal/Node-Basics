@@ -36,15 +36,18 @@ function startApp(name) {
 function onDataReceived(text) {
 
   text = text.replace(/\n/g, '').trim();
-  let command = text.split(' ');
+  let splitedText = text.split(' ');
 
   if (text === 'quit' || text === 'exit') {
     quit();
   }
-  else if (command[0] === 'hello') {
-    hello(text);
+  else if (splitedText[0] === 'hello') {
+    let command =splitedText[0];
+    let argument=splitedText.slice(1).join(' ')
+    hello(argument);
+
   }
-  else if (text === 'help') {
+  else if (splitedText[0] === 'help') {
     help();
   }
   else {
@@ -70,8 +73,8 @@ function unknownCommand(c) {
  *@param {string} text
  * @returns {void}
  */
-function hello(text) {
-  console.log(text + '!')
+function hello(argument) {
+  console.log(`hello ${argument}!`)
 }
 
 
