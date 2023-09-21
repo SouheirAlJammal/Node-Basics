@@ -60,7 +60,7 @@ function onDataReceived(text) {
   } else if (splitedText[0] === 'list') {
 
     listedTask(taskList);
-    console.log(taskList);
+    // console.log(taskList);
 
   } else if (splitedText[0] === 'add') {
 
@@ -81,7 +81,14 @@ function onDataReceived(text) {
     let editRequest = splitedText.slice(1).join(' ');
     editTask(editRequest);
   }
+  else if (splitedText[0] === 'check') {
+    let IndexTaskChecked = splitedText.slice(1).join(' ');
+    checkTask(IndexTaskChecked);
 
+  }else if (splitedText[0] === 'uncheck') {
+    let IndexUnchecked = splitedText.slice(1).join(' ');
+    uncheckTask(IndexUnchecked);
+  }
 
   else {
     unknownCommand(text);
@@ -183,6 +190,23 @@ function editTask(editRequest) {
   if (editRequest === '') console.log("write the new task you want to change");
   else if (editRequest.match(checkNbr) === null) { taskList[(taskList.length) - 1].task = editRequest }
   else { taskList[editRequest[0] - 1].task = editRequest.slice(1) };
+}
+
+function checkTask(IndexTaskChecked) {
+  if (IndexTaskChecked === '') { console.log('should select the task by index') }
+  else {
+    taskList[parseInt(IndexTaskChecked)-1].done=true;
+    console.log(`"task ${IndexTaskChecked}" is marked as checked`)
+  }
+}
+
+
+function uncheckTask(IndexUnchecked) {
+  if (IndexUnchecked === '') { console.log('should select the task by index') }
+  else {
+    taskList[parseInt(IndexUnchecked)-1].done=false;
+    console.log(`"task ${IndexUnchecked}" is marked as unchecked`)
+  }
 }
 // The following line starts the application
 startApp("Souheir Al Jammal")
