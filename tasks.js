@@ -125,6 +125,7 @@ function help() {
   exit   command to quit App
   add    command to add task 
   remove (index of element) command remove elt
+  edit (index of Task) (edited task)
 
  `)
 }
