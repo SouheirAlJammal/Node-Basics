@@ -10,8 +10,7 @@
  * @returns {void}
  */
 
-var taskList=[];
-
+var taskList = [];
 function startApp(name) {
   process.stdin.resume();
   process.stdin.setEncoding('utf8');
@@ -59,24 +58,27 @@ function onDataReceived(text) {
 
 
   } else if (splitedText[0] === 'list') {
-  
+
     listedTask(taskList);
-
-
-
+    console.log(taskList);
 
   } else if (splitedText[0] === 'add') {
-  
-    let newTask = splitedText.slice(1).join(' ');
-    taskList.push(newTask);
-    addTask(newTask);
 
-  }else if(splitedText[0]=== 'remove'){
-    let taskIndex=splitedText.slice(1).join(' ');
-removeTask(taskIndex);
+    var TaskProperties = {
+      'task': '',
+      'done': false
+    };
+
+    TaskProperties.task = splitedText.slice(1).join(' ');
+    taskList.push(TaskProperties);
+    addTask(TaskProperties.task);
+
+  } else if (splitedText[0] === 'remove') {
+    let taskIndex = splitedText.slice(1).join(' ');
+    removeTask(taskIndex);
   }
-  else if(splitedText[0]=== 'edit'){
-    let editRequest=splitedText.slice(1).join(' ');
+  else if (splitedText[0] === 'edit') {
+    let editRequest = splitedText.slice(1).join(' ');
     editTask(editRequest);
   }
 
@@ -146,12 +148,14 @@ function quit() {
  *@param {array}
  */
 function listedTask(tasks) {
-
-  if(taskList.length === 0){console.log('there is No tasks yet')}
- else{ for (let i = 0; i < tasks.length; i++) {
-    console.log(
-      `${i + 1}-${tasks[i].trim()}`)
-  }}
+  console.log(tasks);
+  if (taskList.length === 0) { console.log('there is No tasks yet') }
+  else {
+    for (let i = 0; i < tasks.length; i++) {
+      if (taskList[i].done) console.log(`${i + 1}-[✓]${tasks[i].task.trim()}`);
+      else console.log(`${i + 1}-[ ]${tasks[i].task.trim()}`)
+    }
+  }
 }
 
 /**
@@ -166,19 +170,19 @@ function addTask(newTask) {
 }
 
 
-function removeTask(taskIndex){
- 
-   if(taskIndex===''){taskList.splice(taskList.length-1,1)}
-  else if(taskIndex>0 && taskIndex<taskList.length){ taskList.splice(taskIndex-1,1);}
-else console.log("Task does not exist")
+function removeTask(taskIndex) {
+
+  if (taskIndex === '') { taskList.splice(taskList.length - 1, 1) }
+  else if (taskIndex > 0 && taskIndex < taskList.length) { taskList.splice(taskIndex - 1, 1); }
+  else console.log("Task does not exist")
 
 }
 
-function editTask(editRequest){
-  let checkNbr=/\d+/g;
-if (editRequest==='')console.log("write the new task you want to change");
-else if(editRequest.match(checkNbr) === null){taskList[(taskList.length)-1]=editRequest}
-else {taskList[editRequest[0]-1]=editRequest.slice(1)};
+function editTask(editRequest) {
+  let checkNbr = /\d+/g;
+  if (editRequest === '') console.log("write the new task you want to change");
+  else if (editRequest.match(checkNbr) === null) { taskList[(taskList.length) - 1].task = editRequest }
+  else { taskList[editRequest[0] - 1].task = editRequest.slice(1) };
 }
 // The following line starts the application
 startApp("Souheir Al Jammal")
