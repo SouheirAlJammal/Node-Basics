@@ -69,7 +69,6 @@ function onDataReceived(text) {
   } else if (splitedText[0] === 'add') {
   
     let newTask = splitedText.slice(1).join(' ');
-    console.log(newTask);
     taskList.push(newTask);
     addTask(newTask);
 
@@ -142,7 +141,7 @@ function quit() {
  */
 function listedTask(tasks) {
 
-  if(taskList.length ===0){console.log('there is No tasks yet')}
+  if(taskList.length === 0){console.log('there is No tasks yet')}
  else{ for (let i = 0; i < tasks.length; i++) {
     console.log(
       `${i + 1}-${tasks[i].trim()}
@@ -157,7 +156,7 @@ function listedTask(tasks) {
  * @param {number} tasksLength
  */
 function addTask(newTask) {
-  if (process.env.ARRAY_TASK=== 1) { console.log('No task have been added') }
+  if (newTask === '') { console.log('No task have been added') }
   else { console.log(`"${newTask}" added successfully`) }
 }
 
